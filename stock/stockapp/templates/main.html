@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block stockform %}
+
+<form action="" method="post" accept-charset="utf-8">{% csrf_token %}
+	<input type="text" class="stockquotes" value="">
+	<div></div>	
+</form>
+<script>
+
+	$("form").submit(function () { 
+	var value = $(".stockquotes").eq(0).val();
+	$.getJSON("/stock/stockquotes/"+value+"/?r=" + Math.random(), 
+	function(data){
+		value = data.price;
+		$("div").text(value);
+
+		})
+	
+	return false; });
+
+</script>
+{% endblock stockform %}
