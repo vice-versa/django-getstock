@@ -1,24 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  	{% load media %}
+    {% load media %}
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
    <head>
    {% block header %}
 
       <TITLE>Main page</TITLE>
-	  {% block scripts %}
-	  <script src="{% media "js/jquery-1.4.2.min.js" %}"></script>
-	  <script src="{% media "js/stock.js" %}"></script>
-	  {% endblock scripts %}
+      {% block scripts %}
+      <script src="{% media "js/jquery-1.4.2.min.js" %}"></script>
+      {% endblock scripts %}
    {% endblock header %}
 
    </HEAD>
    <BODY>
-   	   {% block body %}
+      {% block body %}
 
-      <P>Hello world!</P>
-	  {% block stockform %}
-	  {% endblock stockform %}
+	  {% block user %}
+	  <div class="user">
+      {% if user.is_authenticated %}
+           you are logged in as {{ user }}. click <a href="{% url logout %}">here</a> to log out
+      {% else %}
+           click <a href="{% url login %}">here</a> to log in
+      {% endif %}   
+      </div>
+     {% endblock user %}
+
+      {% block hello %}
+	  {% endblock hello %}
+      {% block stockform %}
+      {% endblock stockform %}
       {% endblock body %}
 
    </BODY>

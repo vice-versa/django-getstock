@@ -35,7 +35,7 @@ TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'ru-ru'
 
 SITE_ID = 1
-
+SESSION_SAVE_EVERY_REQUEST = True
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -68,6 +68,15 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.contrib.messages.context_processors.messages',
+                               )
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -91,7 +100,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'stockapp',
 )
+TWITTER_CONSUMER_KEY = 'hSkpbZchMlEGwhYZBPJg'
+TWITTER_CONSUMER_SECRET = '7sumS8urlINjAXyDWYf3pnbgqF00AhwJL36rjV9AwpI'
+
+AUTHENTICATION_BACKENDS = (
+        'stockapp.backends.twitterauth.TwitterBackend',
+        'django.contrib.auth.backends.ModelBackend',
+    )
+     
+AUTH_PROFILE_MODULE = "stockapp.UserProfile"
+
