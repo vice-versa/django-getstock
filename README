@@ -1,0 +1,46 @@
+= stock it is test django app developed with Django1.2.1, python 2.6
+
+  have two main features
+
+ * page that displays the most recent price for a stock.  there should be a single input field where a user can type in a stock symbol (for example on finance.google.com).   Entering the field will retrieve the most recent stock price without refreshing the page. Available at /stock/main
+ * a page that just says "hello world" Available at /hello
+
+ both pages also contain links to login app via twitter account.
+
+= installation
+ install Django, python
+ install oauth, python-twitter, oauth-python-twitter
+ 
+ create new django project add stockapp in it
+
+ You have to configure required additional parameters in settings.py
+
+ TWITTER_CONSUMER_KEY = 'YOUR_APP_KEY'
+ TWITTER_CONSUMER_SECRET = 'YOR_APP_SECRET'
+
+ AUTHENTICATION_BACKENDS = (
+        'stockapp.backends.twitterauth.TwitterBackend',
+        'django.contrib.auth.backends.ModelBackend',
+    )
+     
+ AUTH_PROFILE_MODULE = "stockapp.UserProfile"
+ 
+ MEDIA_ROOT should point on stockapp/media
+
+ also your should be like this 
+ urlpatterns = patterns('',
+    # Example:
+    (r'^stock/', include('stock.stockapp.urls')),
+    url('^login/$', twitter_signin, name='login'),
+    url('^return/$', twitter_return, name='return'),
+    url('^logout/$', twitter_logout, name='logout'),
+    url('^hello/$', hello, name='hello'),
+    
+    (r'^admin/', include(admin.site.urls)),
+    
+    (r'^assets/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT}),
+
+)
+
+
